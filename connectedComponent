@@ -1,0 +1,100 @@
+import java.util.Stack;
+
+public class connectedComponent {
+  public static void main(String [] args){
+    connectedComponent a= new connectedComponent();
+	   graph g=a.new graph(5);
+	   g.addEdge(1, 0);
+	    g.addEdge(0, 2);
+	    g.addEdge(2, 1);
+	    g.addEdge(0, 3);
+	    g.addEdge(3, 4);
+	    g.printScc();
+	  
+	  
+  }
+	
+	
+	class graph{
+		int V;           // number of vertices
+		int [][] mat;            // adjancy matrix
+		
+		public graph(int v) {
+			V=v;
+			mat=new int [v][v];
+		}
+		// add edge x-->y
+		void addEdge(int x,int y){             
+			mat[x][y]=1;
+		}
+		
+		graph tranpose(){
+			graph res=new graph(V);
+			
+			for(int i=0;i<V;i++){
+				for(int j=0;j<V;j++){
+					if(mat[i][j]==1){
+						res.mat[j][i]=1;
+					}
+					
+					
+				}
+			}
+		return res;
+	}
+		// to print
+		void DFS(int v, boolean[] visited){
+		visited[v]=true;
+		System.out.print(v+" ");
+		for(int i=0;i<V;i++){
+			if(mat[v][i]==1){
+				if(!visited[i])
+				DFS(i, visited);
+			}
+		}
+			
+		}
+		
+		void fillOrder(int v, boolean[] visited,Stack<Integer> S){
+			
+			visited[v]=true;
+		
+			for(int i=0;i<V;i++){
+				if(mat[v][i]==1){
+					if(!visited[i])
+					fillOrder(i, visited,S);
+				}
+			}
+			S.push(v);
+		}
+		
+		void printScc(){
+			
+			Stack <Integer> S=new Stack<Integer>();
+			boolean [] visited=new boolean[V];
+			for(int i = 0; i < V; i++)
+		        if(visited[i] == false)
+		            fillOrder(i, visited, S);
+			
+			graph gt=tranpose();
+			for(int i = 0; i < V; i++)
+		        visited[i] = false;
+			
+			 while (S.empty() == false)
+			    {
+			        // Pop a vertex from stack
+			        int v = S.peek();
+			        S.pop();
+			 
+			        // Print Strongly connected component of the popped vertex
+			        if (visited[v] == false)
+			        {
+			            gt.DFS(v, visited);
+			            System.out.println();
+			        }
+			    }
+			
+		}
+		
+	}
+}
