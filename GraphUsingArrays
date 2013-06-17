@@ -1,0 +1,63 @@
+public class GraphUsingArray {
+
+  int numOfEdges;
+	int numOfVetices;
+	int [] vertices;
+	int[][] edges;
+	int count=0;
+	
+	
+	public GraphUsingArray(int edges, int vertices) {
+		this.numOfEdges=edges;
+		this.numOfVetices= vertices;
+		 this.vertices= new int [numOfVetices];
+		this.edges=new int [numOfEdges][2];
+		
+		for(int i=0;i<numOfVetices;i++){
+			this.vertices[i]=-1;
+			
+		}
+		
+	}
+	
+	// add vertex from u to v
+	void addVertex(int u, int v){
+		edges[count][0]=v;
+		edges[count][1]=vertices[u];
+		vertices[u]=count;
+		count++;
+	}
+	
+	
+	// to get all the edges and vertices adjacent to u .
+	
+	void adjacentToVertex(int u){
+		for(int id= vertices[u];id!=-1;id=edges[id][1]){
+			
+			// edges[id][0] is adjacent vertex and id is edge from u
+			System.out.println("Edge " + id +" is between "+u +" ----->" +edges[id][0]);
+		}
+	}
+	
+	
+	
+	public static void main (String [] args){
+		GraphUsingArray obj= new GraphUsingArray(8, 5);
+		obj.addVertex(0, 4);
+		obj.addVertex(0, 1);
+		obj.addVertex(0, 2);
+		obj.addVertex(1, 4);
+		obj.addVertex(1, 2);
+		obj.addVertex(2, 1);
+		obj.addVertex(3, 1);
+		obj.addVertex(3, 2);
+		
+		obj.adjacentToVertex(0);
+		
+	}
+	
+	
+	
+	
+	
+}
