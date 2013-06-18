@@ -20,8 +20,8 @@ public class GraphUsingArray {
 		
 	}
 	
-	// add vertex from u to v
-	void addVertex(int u, int v){
+	// add Edge from u to v
+	void addEdge(int u, int v){
 		edges[count][0]=v;
 		edges[count][1]=vertices[u];
 		vertices[u]=count;
